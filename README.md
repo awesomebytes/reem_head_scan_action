@@ -23,22 +23,22 @@ When requested, the robot will perform the following hard-coded behaviour: <br>
 &nbsp;&nbsp;&nbsp;5. look down-right, snapshot <br>
 &nbsp;&nbsp;&nbsp;6. look down-center, snapshot <br>
 
-After requesting each PointCloud snapshot, this node waits 2.5 sec because it seems there is some delay in matching the PointCloud data with its correct TF transform.
+After requesting each PointCloud snapshot, this node waits 2.5 sec because it seems there is some delay in matching the PointCloud data with its correct TF transform. The minimum delay is approx 2 sec.
 <br>
 
 <br>
-ToDo: - Maybe the robot should finish looking straight ahead, then the user's code should move the 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; head back down at the table, or add multiple pre-programmed scan patterns.
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Make some of the variables as ROS parameters e.g. the 2 sec delay after each snapshot.
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Test the goal cancel callback, maybe the head should return to look straight ahead.
+ToDo: - Maybe the robot should finish looking straight ahead, then the user's code should move the <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; head back down at the table, or add multiple pre-programmed scan patterns. <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Make some of the variables as ROS parameters e.g. the 2 sec delay after each snapshot. <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Test the goal cancel callback, maybe the head should return to look straight ahead. <br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Test the watchdog callback, in case the head move fails.
 <br>
 
 <br>
 **Required ROS packages:** <br>
 reem_common  (DavidB-PAL fork, not yet merged with Master 15/3/13) <br>
-pointcloud_snapshotter
-head_traj_controller (an instance of the Joint Trajectory Action Server)
+pointcloud_snapshotter <br>
+head_traj_controller (an instance of the Joint Trajectory Action Server) <br>
 reem_manipulation_worlds (only for testing)
 <br>
 
