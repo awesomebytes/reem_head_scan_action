@@ -207,23 +207,23 @@ public:
         down_center.trajectory.joint_names.push_back("head_1_joint");
         down_center.trajectory.joint_names.push_back("head_2_joint");
         down_center.trajectory.points[0].positions.push_back(0.0);
-        down_center.trajectory.points[0].positions.push_back(0.34); // tilt down, limit is 20 degrees or 0.349 radians
+        down_center.trajectory.points[0].positions.push_back(0.44); // tilt down, limit is 20 degrees or 0.349 radians
         down_center.trajectory.points[0].time_from_start = ros::Duration(1.5); // velocity
 
         control_msgs::FollowJointTrajectoryGoal down_left;
         down_left.trajectory.points.resize(1); // 1 single waypoint
         down_left.trajectory.joint_names.push_back("head_1_joint");
         down_left.trajectory.joint_names.push_back("head_2_joint");
-        down_left.trajectory.points[0].positions.push_back(0.5); // left
-        down_left.trajectory.points[0].positions.push_back(0.34);
+        down_left.trajectory.points[0].positions.push_back(0.4); // left
+        down_left.trajectory.points[0].positions.push_back(0.44);
         down_left.trajectory.points[0].time_from_start = ros::Duration(1.5); // velocity
 
         control_msgs::FollowJointTrajectoryGoal down_right;
         down_right.trajectory.points.resize(1); // 1 single waypoint
         down_right.trajectory.joint_names.push_back("head_1_joint");
         down_right.trajectory.joint_names.push_back("head_2_joint");
-        down_right.trajectory.points[0].positions.push_back(-0.5); // right
-        down_right.trajectory.points[0].positions.push_back(0.34);
+        down_right.trajectory.points[0].positions.push_back(-0.4); // right
+        down_right.trajectory.points[0].positions.push_back(0.44);
         down_right.trajectory.points[0].time_from_start = ros::Duration(1.5); // velocity
 
         // Delay to wait after taking each snapshot, so TF can catch-up
