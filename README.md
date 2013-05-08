@@ -16,14 +16,13 @@ This node should be launched in the same namespace as the 'follow_joint_trajecto
 It is called using an empty Action message of type pr2_controllers_msgs::PointHeadAction
 
 When requested, the robot will perform the following hard-coded behaviour: <br>
-&nbsp;&nbsp;&nbsp;1. look straight ahead, snapshot <br>
-&nbsp;&nbsp;&nbsp;2. look left, snapshot <br>
-&nbsp;&nbsp;&nbsp;3. look right, snapshot <br>
+[We had more scans here, they were suppressed]
+
 &nbsp;&nbsp;&nbsp;4. look down-left, snapshot <br>
 &nbsp;&nbsp;&nbsp;5. look down-right, snapshot <br>
 &nbsp;&nbsp;&nbsp;6. look down-center, snapshot <br>
 
-After requesting each PointCloud snapshot, this node waits 2.5 sec because it seems there is some delay in matching the PointCloud data with its correct TF transform. The minimum delay is approx 2 sec.
+After requesting each PointCloud snapshot, this node waits 3 sec because it seems there is some delay in matching the PointCloud data with its correct TF transform. The minimum delay is approx 2 sec.
 <br>
 
 <br>
