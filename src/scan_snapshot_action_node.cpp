@@ -178,101 +178,101 @@ public:
 
         // Define head trajectories:
 
-        control_msgs::FollowJointTrajectoryGoal straight_ahead;
-        straight_ahead.trajectory.points.resize(1); // 1 single waypoint
-        straight_ahead.trajectory.joint_names.push_back("head_1_joint");
-        straight_ahead.trajectory.joint_names.push_back("head_2_joint");
-        straight_ahead.trajectory.points[0].positions.push_back(0.0);
-        straight_ahead.trajectory.points[0].positions.push_back(0.0);
-        straight_ahead.trajectory.points[0].time_from_start = ros::Duration(1.5); // velocity
+//        control_msgs::FollowJointTrajectoryGoal straight_ahead;
+//        straight_ahead.trajectory.points.resize(1); // 1 single waypoint
+//        straight_ahead.trajectory.joint_names.push_back("head_1_joint");
+//        straight_ahead.trajectory.joint_names.push_back("head_2_joint");
+//        straight_ahead.trajectory.points[0].positions.push_back(0.0);
+//        straight_ahead.trajectory.points[0].positions.push_back(0.0);
+//        straight_ahead.trajectory.points[0].time_from_start = ros::Duration(1.5); // velocity
 
-        control_msgs::FollowJointTrajectoryGoal straight_ahead_left;
-        straight_ahead_left.trajectory.points.resize(1); // 1 single waypoint
-        straight_ahead_left.trajectory.joint_names.push_back("head_1_joint");
-        straight_ahead_left.trajectory.joint_names.push_back("head_2_joint");
-        straight_ahead_left.trajectory.points[0].positions.push_back(0.5);
-        straight_ahead_left.trajectory.points[0].positions.push_back(0.0);
-        straight_ahead_left.trajectory.points[0].time_from_start = ros::Duration(1.5); // velocity
+//        control_msgs::FollowJointTrajectoryGoal straight_ahead_left;
+//        straight_ahead_left.trajectory.points.resize(1); // 1 single waypoint
+//        straight_ahead_left.trajectory.joint_names.push_back("head_1_joint");
+//        straight_ahead_left.trajectory.joint_names.push_back("head_2_joint");
+//        straight_ahead_left.trajectory.points[0].positions.push_back(0.5);
+//        straight_ahead_left.trajectory.points[0].positions.push_back(0.0);
+//        straight_ahead_left.trajectory.points[0].time_from_start = ros::Duration(1.5); // velocity
 
-        control_msgs::FollowJointTrajectoryGoal straight_ahead_right;
-        straight_ahead_right.trajectory.points.resize(1); // 1 single waypoint
-        straight_ahead_right.trajectory.joint_names.push_back("head_1_joint");
-        straight_ahead_right.trajectory.joint_names.push_back("head_2_joint");
-        straight_ahead_right.trajectory.points[0].positions.push_back(-0.5);
-        straight_ahead_right.trajectory.points[0].positions.push_back(0.0);
-        straight_ahead_right.trajectory.points[0].time_from_start = ros::Duration(1.5); // velocity
+//        control_msgs::FollowJointTrajectoryGoal straight_ahead_right;
+//        straight_ahead_right.trajectory.points.resize(1); // 1 single waypoint
+//        straight_ahead_right.trajectory.joint_names.push_back("head_1_joint");
+//        straight_ahead_right.trajectory.joint_names.push_back("head_2_joint");
+//        straight_ahead_right.trajectory.points[0].positions.push_back(-0.5);
+//        straight_ahead_right.trajectory.points[0].positions.push_back(0.0);
+//        straight_ahead_right.trajectory.points[0].time_from_start = ros::Duration(1.5); // velocity
 
         control_msgs::FollowJointTrajectoryGoal down_center;
         down_center.trajectory.points.resize(1); // 1 single waypoint
         down_center.trajectory.joint_names.push_back("head_1_joint");
         down_center.trajectory.joint_names.push_back("head_2_joint");
         down_center.trajectory.points[0].positions.push_back(0.0);
-        down_center.trajectory.points[0].positions.push_back(0.44); // tilt down, limit is 20 degrees or 0.349 radians
-        down_center.trajectory.points[0].time_from_start = ros::Duration(1.5); // velocity
+        down_center.trajectory.points[0].positions.push_back(0.7); // tilt down, limit is 20 degrees or 0.349 radians
+        down_center.trajectory.points[0].time_from_start = ros::Duration(2); // velocity
 
         control_msgs::FollowJointTrajectoryGoal down_left;
         down_left.trajectory.points.resize(1); // 1 single waypoint
         down_left.trajectory.joint_names.push_back("head_1_joint");
         down_left.trajectory.joint_names.push_back("head_2_joint");
-        down_left.trajectory.points[0].positions.push_back(0.4); // left
-        down_left.trajectory.points[0].positions.push_back(0.44);
-        down_left.trajectory.points[0].time_from_start = ros::Duration(1.5); // velocity
+        down_left.trajectory.points[0].positions.push_back(0.5); // left
+        down_left.trajectory.points[0].positions.push_back(0.7);
+        down_left.trajectory.points[0].time_from_start = ros::Duration(2); // velocity
 
         control_msgs::FollowJointTrajectoryGoal down_right;
         down_right.trajectory.points.resize(1); // 1 single waypoint
         down_right.trajectory.joint_names.push_back("head_1_joint");
         down_right.trajectory.joint_names.push_back("head_2_joint");
-        down_right.trajectory.points[0].positions.push_back(-0.4); // right
-        down_right.trajectory.points[0].positions.push_back(0.44);
-        down_right.trajectory.points[0].time_from_start = ros::Duration(1.5); // velocity
+        down_right.trajectory.points[0].positions.push_back(-0.5); // right
+        down_right.trajectory.points[0].positions.push_back(0.7);
+        down_right.trajectory.points[0].time_from_start = ros::Duration(2); // velocity
 
         // Delay to wait after taking each snapshot, so TF can catch-up
         // ToDo: make this a ROS param
-        double tf_delay_ = 2.5;
+        double tf_delay_ = 3; // was 2.5
 
         std_srvs::Empty snapshot_call;
 
-        // Look straight ahead, take snapshot
-        ROS_INFO("Looking straight ahead...");
-        head_traj_action_client_->sendGoal(straight_ahead);
-        head_traj_action_client_->waitForResult();
-        if(head_traj_action_client_->getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
-            ROS_INFO("done!");
-        else
-            ROS_ERROR("The action failed.");
-        ros::Duration(tf_delay_).sleep();
-        if (get_pointcloud_snapshot_client_.call(snapshot_call))
-            ROS_INFO("Taking PointCloud snapshot from ASUS Xtion");
-        else
-            ROS_ERROR("Failed requesting snapshot from ASUS Xtion");
+//        // Look straight ahead, take snapshot
+//        ROS_INFO("Looking straight ahead...");
+//        head_traj_action_client_->sendGoal(straight_ahead);
+//        head_traj_action_client_->waitForResult();
+//        if(head_traj_action_client_->getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
+//            ROS_INFO("done!");
+//        else
+//            ROS_ERROR("The action failed.");
+//        ros::Duration(tf_delay_).sleep();
+//        if (get_pointcloud_snapshot_client_.call(snapshot_call))
+//            ROS_INFO("Taking PointCloud snapshot from ASUS Xtion");
+//        else
+//            ROS_ERROR("Failed requesting snapshot from ASUS Xtion");
 
-        // Look left, take snapshot
-        ROS_INFO("Looking to the left...");
-        head_traj_action_client_->sendGoal(straight_ahead_left);
-        head_traj_action_client_->waitForResult();
-        if(head_traj_action_client_->getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
-            ROS_INFO("done!");
-        else
-            ROS_ERROR("The action failed.");
-        ros::Duration(tf_delay_).sleep();
-        if (get_pointcloud_snapshot_client_.call(snapshot_call))
-            ROS_INFO("Taking PointCloud snapshot from ASUS Xtion");
-        else
-            ROS_ERROR("Failed requesting snapshot from ASUS Xtion");
+//        // Look left, take snapshot
+//        ROS_INFO("Looking to the left...");
+//        head_traj_action_client_->sendGoal(straight_ahead_left);
+//        head_traj_action_client_->waitForResult();
+//        if(head_traj_action_client_->getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
+//            ROS_INFO("done!");
+//        else
+//            ROS_ERROR("The action failed.");
+//        ros::Duration(tf_delay_).sleep();
+//        if (get_pointcloud_snapshot_client_.call(snapshot_call))
+//            ROS_INFO("Taking PointCloud snapshot from ASUS Xtion");
+//        else
+//            ROS_ERROR("Failed requesting snapshot from ASUS Xtion");
 
-        // Look right, take snapshot
-        ROS_INFO("Looking to the right...");
-        head_traj_action_client_->sendGoal(straight_ahead_right);
-        head_traj_action_client_->waitForResult();
-        if(head_traj_action_client_->getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
-            ROS_INFO("done!");
-        else
-            ROS_ERROR("The action failed.");
-        ros::Duration(tf_delay_).sleep();
-        if (get_pointcloud_snapshot_client_.call(snapshot_call))
-            ROS_INFO("Taking PointCloud snapshot from ASUS Xtion");
-        else
-            ROS_ERROR("Failed requesting snapshot from ASUS Xtion");
+//        // Look right, take snapshot
+//        ROS_INFO("Looking to the right...");
+//        head_traj_action_client_->sendGoal(straight_ahead_right);
+//        head_traj_action_client_->waitForResult();
+//        if(head_traj_action_client_->getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
+//            ROS_INFO("done!");
+//        else
+//            ROS_ERROR("The action failed.");
+//        ros::Duration(tf_delay_).sleep();
+//        if (get_pointcloud_snapshot_client_.call(snapshot_call))
+//            ROS_INFO("Taking PointCloud snapshot from ASUS Xtion");
+//        else
+//            ROS_ERROR("Failed requesting snapshot from ASUS Xtion");
 
         // Look down & left, take snapshot
         ROS_INFO("Looking down & to the left...");
