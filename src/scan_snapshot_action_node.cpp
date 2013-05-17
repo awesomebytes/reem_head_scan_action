@@ -229,6 +229,7 @@ public:
         // Delay to wait after taking each snapshot, so TF can catch-up
         // ToDo: make this a ROS param
         double tf_delay_ = 3; // was 2.5
+        double trigger_octomap_delay_ = 2; // pointcloud_snapshotter -> trigger_collision_map has 1s loop to trigger
 
         std_srvs::Empty snapshot_call;
 
@@ -287,6 +288,7 @@ public:
             ROS_INFO("Taking PointCloud snapshot from ASUS Xtion");
         else
             ROS_ERROR("Failed requesting snapshot from ASUS Xtion");
+        ros::Duration(trigger_octomap_delay_).sleep();
 
         // Look down & right, take snapshot
         ROS_INFO("Looking down & to the right...");
@@ -301,6 +303,7 @@ public:
             ROS_INFO("Taking PointCloud snapshot from ASUS Xtion");
         else
             ROS_ERROR("Failed requesting snapshot from ASUS Xtion");
+        ros::Duration(trigger_octomap_delay_).sleep();
 
         // Look down at table, take snapshot
         ROS_INFO("Looking down at table...");
@@ -315,6 +318,7 @@ public:
             ROS_INFO("Taking PointCloud snapshot from ASUS Xtion");
         else
             ROS_ERROR("Failed requesting snapshot from ASUS Xtion");
+        ros::Duration(trigger_octomap_delay_).sleep();
 
         /*
         // Look straight ahead (again), take snapshot
